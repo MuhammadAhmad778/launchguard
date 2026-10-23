@@ -1,0 +1,27 @@
+# Demonstration only. All credentials below are deliberately fake.
+# Intended access: web = external, database = application-only, admin = host-local.
+services:
+  web:
+    image: nginx:stable
+    ports:
+      - "8080:80"
+    networks: [app]
+  database:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: FAKE_DEMO_PASSWORD_DO_NOT_USE
+    ports:
+      - "5432:5432"
+    networks: [app]
+    volumes:
+      - database-data:/var/lib/postgresql/data
+  admin:
+    image: adminer:4
+    ports:
+      - "8081:8080"
+    networks: [app]
+networks:
+  app:
+    driver: bridge
+volumes:
+  database-data:

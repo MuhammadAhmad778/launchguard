@@ -1,0 +1,13 @@
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.log
+.streamlit/secrets.toml
+candidate*.yaml
+launchguard-report*.md
+.qa/
