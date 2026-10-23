@@ -1,12 +1,10 @@
 """LaunchGuard's local review workflow. Business logic lives in separate modules."""
 import hashlib
-import os
 from pathlib import Path
 
 import streamlit as st
-from dotenv import load_dotenv
 
-from ai_client import AIError, build_payload, explain
+from ai_client import AIError, build_payload, explain, read_settings
 from analyzer import analyze, shared_networks
 from compose_parser import ComposeError, parse_compose
 from corrections import CorrectionError, propose
@@ -14,7 +12,7 @@ from models import Intent, LIMITS
 from reporting import make_report, safe_diff
 
 ROOT = Path(__file__).resolve().parent
-load_dotenv(ROOT / ".env")
+ai_settings = read_settings(ROOT / ".env")
 SAMPLE = (ROOT / "samples" / "demo-compose.yaml").read_text(encoding="utf-8")
 
 st.set_page_config(page_title="LaunchGuard · Deployment intent", page_icon="◈", layout="wide")
@@ -62,8 +60,10 @@ with st.sidebar:
     st.divider()
     st.markdown("**Local analysis**")
     st.caption("Your configuration stays in this app process. AI receives only pseudonymized, allowlisted facts when you request it.")
-    enabled = bool(os.getenv("GEMINI_API_KEY", "").strip() and os.getenv("LAUNCHGUARD_MODEL", "").strip())
+    enabled = ai_settings.configured
     st.caption("AI explanation configured" if enabled else "Deterministic-only mode · no API key required")
+    if enabled:
+        st.text("Model: " + ai_settings.model)
     st.divider()
     st.caption("Single-file Docker Compose review. Nothing is deployed or executed.")
 
@@ -102,6 +102,13 @@ if document is None:
     st.divider()
     st.caption("Start with the demo: a public website, an application-only database, and a host-local administration service.")
     st.stop()
+
+# A settings edit invalidates old AI text/errors, but keeps deterministic results.
+settings_fingerprint = hashlib.sha256((ai_settings.api_key + "\0" + ai_settings.model).encode()).hexdigest()
+if st.session_state.get("ai_settings_fingerprint") != settings_fingerprint:
+    st.session_state.pop("ai_result", None)
+    st.session_state.pop("ai_error", None)
+    st.session_state.ai_settings_fingerprint = settings_fingerprint
 
 # Defense against stale results even if the framework callback is skipped.
 if hashlib.sha256(source.encode()).hexdigest() != st.session_state.get("source_digest"):
@@ -210,9 +217,9 @@ with ai_col:
     if st.button("Explain findings with AI"):
         st.session_state.pop("ai_result", None)
         st.session_state.pop("ai_error", None)
-        with st.spinner("Requesting an explanation of the structured facts…"):
+        with st.spinner("Requesting an explanation… Temporary provider failures are retried once; this may take up to 90 seconds."):
             try:
-                st.session_state.ai_result = explain(build_payload(document, analysis, intents, candidate))
+                st.session_state.ai_result = explain(build_payload(document, analysis, intents, candidate), settings=ai_settings)
             except AIError as error:
                 st.session_state.ai_error = str(error)
     if st.session_state.get("ai_error"):

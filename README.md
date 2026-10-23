@@ -111,9 +111,9 @@ GEMINI_API_KEY=your_local_api_key
 LAUNCHGUARD_MODEL=an_exact_model_available_to_your_account
 ```
 
-Do not paste credentials into chat or commit them. `.env` is ignored. No default model or silent model substitution is used. Missing credentials leave deterministic analysis fully operational.
+Do not paste credentials into chat or commit them. `.env` is ignored. No default model or silent model substitution is used. Missing credentials leave deterministic analysis fully operational. The sidebar shows the configured model. Local `.env` settings are reread on each interaction and take precedence over process environment values, so changing a key or model does not require a server restart; blank local settings disable AI.
 
-Click **Explain findings with AI** only when you want an external request. Inspect the exact structured facts first. Requests use Google's official `google-genai` SDK, a 20-second request timeout, one attempt, and bounded output. Some models may return nonconforming responses; those are rejected with a safe message. API/model access must be tested with your own configured account.
+Click **Explain findings with AI** only when you want an external request. Inspect the exact structured facts first. Requests use Google's official `google-genai` SDK, a 45-second per-request timeout and bounded output. Temporary HTTP 502/503/504 failures are retried once after one second, on the same model (at most two attempts). Quota, authentication, unavailable-model, invalid-response, and client-timeout errors are not automatically retried. Gemini requests use JSON output mode; Gemma uses prompt-based JSON. Some models may return nonconforming responses; those are rejected with a safe message. API/model access must be tested with your own configured account. Model-list access does not guarantee generation access: HTTP 404, quota limits, and provider failures are shown separately. The local integration was verified with `gemini-3.1-flash-lite`; availability can differ by account.
 
 AI text is clearly labeled and rendered as text. It cannot edit deterministic findings or generate/apply executable changes. It can still give inaccurate advice. The downloadable deterministic report excludes AI prose.
 
