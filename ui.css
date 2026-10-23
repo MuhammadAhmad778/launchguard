@@ -1,0 +1,97 @@
+/* LaunchGuard design system. All themes share the same component rules.
+   8px spacing scale; no generated Streamlit class names or remote fonts. */
+:root {
+  --bg:#eef3f8; --surface:#ffffff; --raised:#f5f8fc; --field:#f0f4fa;
+  --ink:#152238; --muted:#4d6179; --line:#d4dfe9; --accent:#00768b;
+  --accent-bg:#e0f3f6; --accent-text:#005e70; --primary:#007387; --primary-ink:#ffffff;
+  --success-bg:#e1f4eb; --success-text:#166245; --warning-bg:#fff3d7; --warning-text:#795400;
+  --error-bg:#fce9ed; --error-text:#9c2840; --focus:#087d9a;
+}
+.stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stSidebar"] {background:var(--bg); color:var(--ink)}
+[data-testid="stHeader"] {height:48px}
+.block-container {max-width:1280px; padding:24px 32px 48px; margin-top:48px; background:var(--surface); border:1px solid var(--line); border-radius:16px; min-height:calc(100vh - 64px)}
+[data-testid="stSidebar"] {border-right:1px solid var(--line)}
+[data-testid="stSidebar"] > div:first-child {padding-top:24px}
+[data-testid="stSidebar"] h3 {font-size:20px !important}
+[data-testid="stSidebar"] button {text-align:left}
+h1,h2,h3,h4,h5,h6 {color:var(--ink) !important; letter-spacing:-.025em; overflow-wrap:anywhere}
+h1 {font-size:30px !important; font-weight:650 !important; line-height:1.2 !important; padding:0 !important}
+h2 {font-size:22px !important; font-weight:600 !important}
+h3 {font-size:18px !important; font-weight:600 !important}
+h4 {font-size:16px !important}
+p,li {line-height:1.55}
+[data-testid="stMarkdownContainer"], [data-testid="stText"], [data-testid="stText"] *, [data-testid="stWidgetLabel"], [data-testid="stMetricValue"] {color:var(--ink)}
+[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p, .stCaption, [data-testid="stMarkdownContainer"] small {color:var(--muted) !important; opacity:1}
+[data-testid="stText"] pre {color:var(--ink) !important; white-space:pre-wrap; overflow-wrap:anywhere}
+.brand-header {display:flex; align-items:center; gap:16px; margin:0 0 24px}
+.brand-header img {flex-shrink:0; object-fit:contain}
+.brand-header p {color:var(--muted); margin:8px 0 0; font-size:15px; max-width:70ch}
+.workflow {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; padding:0; margin:0 0 24px; list-style:none}
+.workflow li {display:flex; gap:8px; align-items:center; padding:14px 12px; font-size:14px; color:var(--muted); background:var(--raised); border-radius:8px; border:1px solid var(--line); margin:0}
+.workflow li.active {color:var(--accent-text); background:var(--accent-bg); border-color:var(--accent); font-weight:600}
+.workflow li.ready {color:var(--success-text)}
+.workflow span {flex-shrink:0; font-size:12px; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--surface); border:1px solid var(--line); font-variant-numeric:tabular-nums}
+.workflow li.active span {background:var(--primary); color:var(--primary-ink); border-color:var(--primary)}
+[data-testid="stVerticalBlockBorderWrapper"] > div {border-color:var(--line) !important; border-radius:12px !important}
+[data-testid="stExpander"] {background:var(--raised); color:var(--ink); border:1px solid var(--line); border-radius:8px}
+[data-testid="stExpander"] summary {color:var(--ink)}
+[data-testid="stTextArea"] textarea {background:var(--field); color:var(--ink); font:14px/1.65 Consolas,monospace; caret-color:var(--accent); padding:16px}
+[data-testid="stTextArea"] [data-baseweb="textarea"] {background:var(--field); border:1px solid var(--line); border-radius:8px}
+[data-testid="stTextArea"] textarea::placeholder {color:var(--muted); opacity:1}
+[data-testid="stButton"] button, [data-testid="stDownloadButton"] button {min-height:44px; border-radius:8px; padding:8px 16px; border:1px solid var(--line); background:var(--raised); color:var(--ink); font-weight:550; transition:background-color 140ms ease,border-color 140ms ease}
+[data-testid="stButton"] button[kind="primary"] {background:var(--primary); color:var(--primary-ink); border-color:var(--primary)}
+[data-testid="stButton"] button[kind="primary"] p {color:var(--primary-ink)}
+[data-testid="stButton"] button:disabled p {color:var(--muted)}
+[data-testid="stButton"] button:disabled {background:var(--raised); color:var(--muted); opacity:.75}
+@media(hover:hover) and (pointer:fine) { [data-testid="stButton"] button:hover:not(:disabled), [data-testid="stDownloadButton"] button:hover {border-color:var(--accent)} }
+button:focus-visible, textarea:focus-visible, [role="combobox"]:focus-visible, input:focus-visible {outline:3px solid var(--focus) !important; outline-offset:3px !important}
+[data-baseweb="select"] > div, [data-baseweb="input"], [data-baseweb="input"] input {background:var(--field) !important; color:var(--ink) !important; border-color:var(--line) !important}
+[data-baseweb="select"] svg {fill:var(--muted)}
+[data-baseweb="popover"], [data-baseweb="menu"], [role="listbox"], [role="option"] {background:var(--surface) !important; color:var(--ink) !important}
+[role="option"]:hover, [role="option"][aria-selected="true"] {background:var(--accent-bg) !important}
+[data-testid="stRadio"] [role="radiogroup"] {gap:8px; flex-wrap:wrap}
+[data-testid="stRadio"] [role="radiogroup"] label {background:var(--raised); border:1px solid var(--line); border-radius:8px; padding:12px !important; margin:0 !important; flex:0 1 auto; min-height:44px}
+[data-testid="stRadio"] [role="radiogroup"] label:has(input:checked) {background:var(--accent-bg); border-color:var(--accent)}
+[data-testid="stRadio"] [role="radiogroup"] label:focus-within {outline:2px solid var(--focus); outline-offset:2px}
+[data-testid="stMetric"] {background:var(--raised); padding:16px; border-radius:12px; font-variant-numeric:tabular-nums}
+[data-testid="stMetricValue"] {font-size:28px; font-weight:600}
+[data-testid="stMetricLabel"] {color:var(--muted)}
+.badge {display:inline-flex; align-items:center; border-radius:5px; padding:3px 8px; font-size:12px; line-height:1.5; font-weight:600; background:var(--raised); color:var(--muted); border:1px solid var(--line); white-space:nowrap}
+.badge.accent {background:var(--accent-bg); color:var(--accent-text); border-color:transparent}
+.badge.success {background:var(--success-bg); color:var(--success-text); border-color:transparent}
+.badge.warning {background:var(--warning-bg); color:var(--warning-text); border-color:transparent}
+.badge.error {background:var(--error-bg); color:var(--error-text); border-color:transparent}
+.service-heading,.finding-heading,.selection-status {display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px}
+.service-heading h3 {margin:0; padding:0}
+.finding-heading > span:last-child,.selection-status > span:last-child {color:var(--muted); font-size:14px}
+.finding-title {margin:8px 0 12px}
+.image-reference {font-size:13px; color:var(--muted); overflow-wrap:anywhere}
+.table-scroll {overflow-x:auto}
+.publication-table {width:100%; border-collapse:collapse; font-size:14px; margin:0 0 8px; color:var(--ink)}
+.publication-table caption {text-align:left; color:var(--muted); font-size:12px; padding-bottom:8px}
+.publication-table th {text-align:left; color:var(--muted); font-size:12px; font-weight:500; padding:8px}
+.publication-table td {padding:10px 8px; border-top:1px solid var(--line)}
+.publication-table code,.image-reference code {color:var(--ink); background:transparent}
+.publication-flow {display:flex; gap:16px; align-items:center; margin:16px 0}
+.publication-flow > div {flex:1; padding:16px; background:var(--field); border:1px solid var(--line); border-radius:8px; min-width:0}
+.publication-flow strong,.publication-flow span {display:block; overflow-wrap:anywhere}
+.publication-flow div span {font-size:13px; color:var(--muted); margin-top:8px}
+[data-testid="stCode"], [data-testid="stCode"] pre {background:var(--field) !important; color:var(--ink) !important}
+[data-testid="stJson"] {background:var(--field); color:var(--ink)}
+[data-testid="stAlert"] {border-radius:8px; background:var(--accent-bg); color:var(--accent-text)}
+[data-testid="stAlert"] p {color:inherit}
+[data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]) {background:var(--warning-bg); color:var(--warning-text)}
+[data-testid="stAlert"]:has([data-testid="stAlertContentError"]) {background:var(--error-bg); color:var(--error-text)}
+[data-testid="stAlert"]:has([data-testid="stAlertContentSuccess"]) {background:var(--success-bg); color:var(--success-text)}
+[data-testid="stHeader"] button {color:var(--muted)}
+hr {border-color:var(--line); margin:24px 0}
+::selection {background:var(--accent-bg); color:var(--accent-text)}
+@media(max-width:900px) {.block-container {padding:24px} .workflow li {font-size:13px; padding:12px 8px}}
+@media(max-width:640px) {.block-container {padding:16px; border:0; border-radius:0} h1 {font-size:24px !important} h2 {font-size:20px !important} .brand-header {align-items:flex-start; gap:12px} .brand-header img {width:40px; height:40px} .workflow {gap:4px} .workflow li {align-items:flex-start; font-size:12px; padding:12px 6px; flex-direction:column} .workflow span {width:22px; height:22px} .publication-flow {gap:8px} .publication-flow > div {padding:12px}}
+@media(prefers-reduced-motion:reduce) {*,*::before,*::after {animation:none !important; transition:none !important; scroll-behavior:auto !important}}
+/* Stable author-defined container keys and native React Aria controls. */
+[class*="st-key-service_card_"], [class*="st-key-finding_"], .st-key-configuration_panel, .st-key-guidance_panel, .st-key-report_panel {background:var(--surface); border:1px solid var(--line) !important; border-radius:12px !important}
+[data-testid="stMultiSelect"] .react-aria-ComboBox > [role="group"], [data-testid="stSelectbox"] .react-aria-Select > button {background:var(--field); color:var(--ink); border:1px solid var(--line); border-radius:8px; min-height:44px}
+[data-testid="stMultiSelect"] input, [data-testid="stMultiSelect"] button, [data-testid="stSelectbox"] button {color:var(--ink); background:transparent}
+[data-testid="stMultiSelect"] [data-tag] {background:var(--accent-bg); color:var(--accent-text)}
+[data-testid="stTextArea"] textarea {border:1px solid var(--line); border-radius:8px}

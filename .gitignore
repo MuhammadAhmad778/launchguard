@@ -11,3 +11,9 @@ __pycache__/
 candidate*.yaml
 launchguard-report*.md
 .qa/
+
+# Local design tooling and generated inspection data
+.agents/
+.taste-skill/
+.codex/hooks.json
+skills-lock.json

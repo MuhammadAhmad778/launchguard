@@ -1,0 +1,9 @@
+/* Dark-first palette. Shared components are defined once in ui.css. */
+:root {
+  color-scheme:dark;
+  --bg:#0b1120; --surface:#111827; --raised:#1a2536; --field:#0c1524;
+  --ink:#f1f5f9; --muted:#a7b6ca; --line:#314057; --accent:#22d3ee;
+  --accent-bg:#153341; --accent-text:#99e9f5; --primary:#22d3ee; --primary-ink:#082533;
+  --success-bg:#16372e; --success-text:#7ee4b6; --warning-bg:#3b301c; --warning-text:#f8d478;
+  --error-bg:#3a2330; --error-text:#ffadc0; --focus:#8bdfee;
+}
